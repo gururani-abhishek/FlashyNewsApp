@@ -1,8 +1,10 @@
 package org.example.flashynews
 
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
@@ -26,8 +28,8 @@ class MainActivity : AppCompatActivity(), FlashyNewsItemClicked {
     }
 
     private fun fetch() {
-        val url = "https://newsapi.org/v2/top-headlines?country=us&apiKey=5fe8a9c7c69049b1941bba53eb135bc9"
-        //val url = "https://saurav.tech/NewsAPI/top-headlines/category/sports/in.json"
+        // val url = "https://newsapi.org/v2/top-headlines?country=us&apiKey=5fe8a9c7c69049b1941bba53eb135bc9"
+        val url = "https://saurav.tech/NewsAPI/top-headlines/category/sports/in.json"
         val jsonObjectRequest = JsonObjectRequest(
             Request.Method.GET, url, null,
             {
@@ -54,6 +56,8 @@ class MainActivity : AppCompatActivity(), FlashyNewsItemClicked {
     }
 
     override fun onItemClicked(item: News) {
-
+        val builder = CustomTabsIntent.Builder();
+        val customTabsIntent  = builder.build();
+        customTabsIntent.launchUrl(this, Uri.parse(item.url));
     }
 }

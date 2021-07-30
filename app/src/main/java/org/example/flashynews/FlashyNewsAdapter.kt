@@ -3,9 +3,11 @@ package org.example.flashynews
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.view.menu.ActionMenuItemView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 
 class FlashyNewsAdapter( private val listener: FlashyNewsItemClicked): RecyclerView.Adapter<FlashyNewsViewHolder>() {
    private val items: ArrayList<News> = ArrayList()
@@ -21,6 +23,8 @@ class FlashyNewsAdapter( private val listener: FlashyNewsItemClicked): RecyclerV
    override fun onBindViewHolder(holder: FlashyNewsViewHolder, position: Int) {
        val currentItem = items[position]
        holder.titleView.text = currentItem.title
+       holder.author.text = currentItem.author
+       Glide.with(holder.itemView.context).load(currentItem.imageUrl).into(holder.image)
    }
 
    override fun getItemCount(): Int {
@@ -37,7 +41,9 @@ class FlashyNewsAdapter( private val listener: FlashyNewsItemClicked): RecyclerV
 }
 
 class FlashyNewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-   val titleView: TextView = itemView.findViewById(R.id.title)
+    val titleView: TextView = itemView.findViewById(R.id.title)
+    val image: ImageView = itemView.findViewById(R.id.image)
+    val author: TextView = itemView.findViewById(R.id.author)
 }
 
 
